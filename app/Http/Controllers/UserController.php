@@ -63,7 +63,7 @@ class UserController extends Controller
 
     public function showUser(){
         try{
-            $users = User::paginate(10)->where('role_id', '!=', '1')->except(Auth::id());
+            $users = User::paginate(10)->where('role_id', '!=', '1')->except(Auth::id())->reverse();
             $roles = Role::all();
             return view('user.showuser',compact('users','roles'));
         }catch(\Exception $ex){
