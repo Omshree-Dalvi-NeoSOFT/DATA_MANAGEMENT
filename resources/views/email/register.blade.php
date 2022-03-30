@@ -1,3 +1,5 @@
+<!-- Email template for user successful registration -->
+
 
 <!DOCTYPE html>
 <html lang="en">

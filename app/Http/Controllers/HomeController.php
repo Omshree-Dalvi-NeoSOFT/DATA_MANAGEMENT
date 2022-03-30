@@ -27,9 +27,12 @@ class HomeController extends Controller
     public function index()
     {
         try{
+            // Sort active an inactive users count
             $active = User::where('status',1)->count();
             $inactive = User::where('status',0)->count(); 
             $role = Role::all();
+
+            // sort usercount as per departments/roles, store in an array 
             foreach( $role as $r){
                 $userCount[] = User::where('role_id',$r->role_id)->count();
             }
@@ -41,7 +44,7 @@ class HomeController extends Controller
     }
 
     public function logout(){
-        Auth::logout();
+        Auth::logout();             // logout function
         return redirect('auth.login');
     }
 }

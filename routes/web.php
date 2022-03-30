@@ -25,6 +25,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// middleware for Authenticated users..
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -34,11 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/showuser/trash',[UserController::class,'showUsertrash'])->name('user.showtrash');
     
     Route::get('/roles',[RoleController::class,'showRole'])->name('role.show');
-    Route::get('/addrole',[RoleController::class,'addRole'])->name('role.add');
+    Route::get('/addrole',[RoleController::class,'showRole'])->name('role.add');
    
     Route::get('/logout',[HomeController::class,'logout'])->name('logout');
     
 });
+
+// middleware for authenticated Admin and Super-Admin
 
 Route::middleware(['auth','checkUser'])->group(function () {
     Route::get('/edituser/{id}',[UserController::class,'editUser'])->name('user.edit');
@@ -46,6 +50,7 @@ Route::middleware(['auth','checkUser'])->group(function () {
     Route::patch('/deleteuser',[UserController::class,'deleteUser'])->name('user.Delete');
     Route::get('/showuser/user/restore/{id}',[UserController::class,'restoreUser'])->name('user.restore');
     Route::patch('/removeuser',[UserController::class,'removeUser'])->name('user.remove');
+    
     Route::post('/postaddrole',[RoleController::class,'postaddRole'])->name('role.postAdd');
     Route::patch('/deleterole',[RoleController::class,'deleteRole'])->name('role.delete');
 });

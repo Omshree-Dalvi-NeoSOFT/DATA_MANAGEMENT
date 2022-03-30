@@ -1,3 +1,5 @@
+<!-- Email template for user update -->
+
 
 <!DOCTYPE html>
 <html lang="en">

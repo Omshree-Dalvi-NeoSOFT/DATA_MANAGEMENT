@@ -18,8 +18,12 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next)
     {
-        //$userRole = User::find(Auth::id());
+        
+        // check authenticated user 
         if(Auth::check()){
+
+            // verify user role i.e. only admin and super admin have access..
+            
             if(Auth::user()->role_id == '1' || Auth::user()->role_id == '2'){
                 return $next($request);
             }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    // function return all the roles present in database.
     public function showRole(){
         try{
             $role = Role::all();
@@ -16,15 +17,7 @@ class RoleController extends Controller
         }
     }
 
-    public function addRole(){
-        try{
-            $role = Role::all();
-            return view('role.addrole',compact('role'));
-        }catch(\Exception $ex){
-            return view('layouts.pagenotfound')->with('error', $ex->getMessage());
-        }
-    }
-
+    // function to add new role in record.
     public function postaddRole(Request $re){
         $validateData = $re->validate([
             'rolename' => ['required']
@@ -32,9 +25,9 @@ class RoleController extends Controller
         
         if($validateData){
             try{
-                $role = new Role();
+                $role = new Role();                 // initiate new role variable
                 $role->role_name = $re->rolename;
-                $role->save();
+                $role->save();                      // save role
                 return back()->with('success','Role Added Successfully !!');
             }catch(\Exception $ex){
                 return view('layouts.pagenotfound')->with('error',$ex->getMessage());
@@ -43,9 +36,10 @@ class RoleController extends Controller
 
     }
 
+    // delete role from record.
     public function deleteRole(Request $req){
         try{
-            Role::where('role_id',$req->aid)->delete();
+            Role::where('role_id',$req->aid)->delete();         // aid -> role id assigned..
             return back()->with('status',"Role deleted successfully");
         }catch(\Exception $ex){
             return view('layouts.pagenotfound')->with('error', $ex->getMessage());
